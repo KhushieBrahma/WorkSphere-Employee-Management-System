@@ -1,0 +1,27 @@
+# Node Modules
+node_modules/
+
+# Environment Files
+.env
+.env.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# macOS
+.DS_Store
+
+# Build folders
+dist/
+build/
+
+# IDE
+.vscode/settings.json
+
+# Coverage
+coverage/
+
+# Temporary
+tmp/
