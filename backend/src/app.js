@@ -7,28 +7,41 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
+const authRoutes = require("./routes/authRoutes");
+const notFound = require("./middleware/notFound");
+const errorHandler = require("./middleware/errorHandler");
+
 const app = express();
 
-// -----------------------------
-// Global Middleware
-// -----------------------------
+// Security Middleware
 app.use(helmet());
 app.use(cors());
+
+// Body Parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Cookies
 app.use(cookieParser());
+
+// Logger
 app.use(morgan("dev"));
 
-// -----------------------------
-// Health Check Route
-// -----------------------------
+// Health Check
 app.get("/", (req, res) => {
-  res.status(200).json({
+  res.json({
     success: true,
-    project: "WorkSphere Employee Management System",
-    version: "1.0.0",
-    message: "Backend API is running successfully 🚀",
+    message: "WorkSphere Backend Running",
   });
 });
+
+// API Routes
+app.use("/api/auth", authRoutes);
+
+// 404 Middleware
+app.use(notFound);
+
+// Global Error Handler
+app.use(errorHandler);
 
 module.exports = app;
