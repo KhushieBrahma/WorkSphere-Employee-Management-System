@@ -1,3 +1,5 @@
+const employeeRoutes = require("./routes/employeeRoutes");
+
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -37,6 +39,7 @@ app.get("/", (req, res) => {
 
 // API Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/employees", employeeRoutes);
 
 // 404 Middleware
 app.use(notFound);

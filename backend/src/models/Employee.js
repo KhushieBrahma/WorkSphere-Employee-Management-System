@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const EMPLOYEE_STATUS = require("../constants/employeeStatus");
 
 const employeeSchema = new mongoose.Schema(
   {
@@ -90,4 +91,3 @@ employeeSchema.index({
 
 module.exports = mongoose.model("Employee", employeeSchema);
 
-const EMPLOYEE_STATUS = require("../constants/employeeStatus");
