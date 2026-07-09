@@ -77,6 +77,16 @@ const createEmployee = async (employeeData) => {
   }
 };
 
+
+const getAllEmployees = async () => {
+  const employees = await Employee.find()
+    .populate("user", "-password")
+    .sort({ createdAt: -1 });
+
+  return employees;
+};
+
 module.exports = {
   createEmployee,
+  getAllEmployees,
 };

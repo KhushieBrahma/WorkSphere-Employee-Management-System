@@ -19,6 +19,25 @@ const createEmployee = async (req, res, next) => {
   }
 };
 
+
+const getAllEmployees = async (req, res, next) => {
+  try {
+    const employees =
+      await employeeService.getAllEmployees();
+
+    res.status(200).json(
+      new ApiResponse(
+        true,
+        "Employees fetched successfully.",
+        employees
+      )
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createEmployee,
+  getAllEmployees,
 };

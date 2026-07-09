@@ -9,6 +9,13 @@ const authorize = require("../middleware/authorize");
 
 const ROLES = require("../constants/roles");
 
+router.get(
+  "/",
+  authMiddleware,
+  authorize(ROLES.ADMIN, ROLES.MANAGER),
+  employeeController.getAllEmployees
+);
+
 // Create Employee (Admin Only)
 router.post(
   "/",
