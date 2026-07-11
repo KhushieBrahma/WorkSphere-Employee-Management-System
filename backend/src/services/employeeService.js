@@ -86,7 +86,19 @@ const getAllEmployees = async () => {
   return employees;
 };
 
+const getEmployeeById = async (id) => {
+  const employee = await Employee.findById(id)
+    .populate("user", "-password");
+
+  if (!employee) {
+    throw new Error("Employee not found.");
+  }
+
+  return employee;
+};
+
 module.exports = {
   createEmployee,
   getAllEmployees,
+  getEmployeeById,
 };

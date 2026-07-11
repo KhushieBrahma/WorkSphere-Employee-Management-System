@@ -16,6 +16,13 @@ router.get(
   employeeController.getAllEmployees
 );
 
+router.get(
+  "/:id",
+  authMiddleware,
+  authorize(ROLES.ADMIN, ROLES.MANAGER),
+  employeeController.getEmployeeById
+);
+
 // Create Employee (Admin Only)
 router.post(
   "/",

@@ -37,7 +37,25 @@ const getAllEmployees = async (req, res, next) => {
   }
 };
 
+const getEmployeeById = async (req, res, next) => {
+  try {
+    const employee =
+      await employeeService.getEmployeeById(req.params.id);
+
+    res.status(200).json(
+      new ApiResponse(
+        true,
+        "Employee fetched successfully.",
+        employee
+      )
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createEmployee,
   getAllEmployees,
+  getEmployeeById,
 };
