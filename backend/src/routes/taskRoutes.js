@@ -9,6 +9,20 @@ const authorize = require("../middleware/authorize");
 
 const ROLES = require("../constants/roles");
 
+router.get(
+  "/",
+  authMiddleware,
+  authorize(ROLES.ADMIN, ROLES.MANAGER),
+  taskController.getAllTasks
+);
+
+router.get(
+  "/:id",
+  authMiddleware,
+  authorize(ROLES.ADMIN, ROLES.MANAGER),
+  taskController.getTaskById
+);
+
 router.post(
   "/",
   authMiddleware,

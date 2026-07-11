@@ -31,6 +31,41 @@ const createTask = async (taskData, assignedBy) => {
   ]);
 };
 
+const getAllTasks = async () => {
+  const tasks = await Task.find()
+    .populate({
+      path: "assignedTo",
+      select: "employeeId firstName lastName department designation",
+    })
+    .populate({
+      path: "assignedBy",
+      select: "email role",
+    })
+    .sort({ createdAt: -1 });
+
+  return tasks;
+};
+
+const getTaskById = async (id) => {
+  const task = await Task.findById(id)
+    .populate({
+      path: "assignedTo",
+      select: "employeeId firstName lastName department designation",
+    })
+    .populate({
+      path: "assignedBy",
+      select: "email role",
+    });
+
+  if (!task) {
+    throw new Error("Task not found.");
+  }
+
+  return task;
+};
+
 module.exports = {
   createTask,
+  getAllTasks,
+  getTaskById,
 };
