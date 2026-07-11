@@ -1,3 +1,5 @@
+const taskRoutes = require("./routes/taskRoutes");
+
 const employeeRoutes = require("./routes/employeeRoutes");
 
 const express = require("express");
@@ -40,6 +42,7 @@ app.get("/", (req, res) => {
 // API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/employees", employeeRoutes);
+app.use("/api/tasks", taskRoutes);
 
 // 404 Middleware
 app.use(notFound);
