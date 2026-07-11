@@ -31,4 +31,11 @@ router.post(
   employeeController.createEmployee
 );
 
+router.put(
+  "/:id",
+  authMiddleware,
+  authorize(ROLES.ADMIN),
+  employeeController.updateEmployee
+);
+
 module.exports = router;

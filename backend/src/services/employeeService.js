@@ -97,8 +97,23 @@ const getEmployeeById = async (id) => {
   return employee;
 };
 
+const updateEmployee = async (id, data) => {
+  const employee = await Employee.findById(id);
+
+  if (!employee) {
+    throw new Error("Employee not found.");
+  }
+
+  Object.assign(employee, data);
+
+  await employee.save();
+
+  return employee.populate("user", "-password");
+};
+
 module.exports = {
   createEmployee,
   getAllEmployees,
   getEmployeeById,
+  updateEmployee,
 };

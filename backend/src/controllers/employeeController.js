@@ -54,8 +54,29 @@ const getEmployeeById = async (req, res, next) => {
   }
 };
 
+const updateEmployee = async (req, res, next) => {
+  try {
+    const employee =
+      await employeeService.updateEmployee(
+        req.params.id,
+        req.body
+      );
+
+    res.status(200).json(
+      new ApiResponse(
+        true,
+        "Employee updated successfully.",
+        employee
+      )
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createEmployee,
   getAllEmployees,
   getEmployeeById,
+  updateEmployee,
 };
