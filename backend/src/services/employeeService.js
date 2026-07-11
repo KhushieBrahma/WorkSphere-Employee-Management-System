@@ -111,9 +111,26 @@ const updateEmployee = async (id, data) => {
   return employee.populate("user", "-password");
 };
 
+const EMPLOYEE_STATUS = require("../constants/employeeStatus");
+
+const deleteEmployee = async (id) => {
+  const employee = await Employee.findById(id);
+
+  if (!employee) {
+    throw new Error("Employee not found.");
+  }
+
+  employee.status = EMPLOYEE_STATUS.INACTIVE;
+
+  await employee.save();
+
+  return employee;
+};
+
 module.exports = {
   createEmployee,
   getAllEmployees,
   getEmployeeById,
   updateEmployee,
+  deleteEmployee,
 };

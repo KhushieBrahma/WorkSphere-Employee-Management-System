@@ -38,4 +38,11 @@ router.put(
   employeeController.updateEmployee
 );
 
+router.delete(
+  "/:id",
+  authMiddleware,
+  authorize(ROLES.ADMIN),
+  employeeController.deleteEmployee
+);
+
 module.exports = router;

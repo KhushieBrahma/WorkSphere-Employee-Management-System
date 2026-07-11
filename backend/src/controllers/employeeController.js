@@ -74,9 +74,28 @@ const updateEmployee = async (req, res, next) => {
   }
 };
 
+const deleteEmployee = async (req, res, next) => {
+  try {
+    const employee = await employeeService.deleteEmployee(
+      req.params.id
+    );
+
+    res.status(200).json(
+      new ApiResponse(
+        true,
+        "Employee deactivated successfully.",
+        employee
+      )
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createEmployee,
   getAllEmployees,
   getEmployeeById,
   updateEmployee,
+  deleteEmployee,
 };
