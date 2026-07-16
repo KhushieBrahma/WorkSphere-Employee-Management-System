@@ -30,4 +30,15 @@ router.post(
   taskController.createTask
 );
 
+router.patch(
+  "/:id/status",
+  authMiddleware,
+  authorize(
+    ROLES.ADMIN,
+    ROLES.MANAGER,
+    ROLES.EMPLOYEE
+  ),
+  taskController.updateTaskStatus
+);
+
 module.exports = router;

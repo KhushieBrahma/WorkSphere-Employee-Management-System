@@ -64,8 +64,38 @@ const getTaskById = async (id) => {
   return task;
 };
 
+const TASK_STATUS = require("../constants/taskStatus");
+
+const updateTaskStatus = async (taskId, status) => {
+  const task = await Task.findById(taskId);
+
+  if (!task) {
+    throw new Error("Task not found.");
+  }
+
+  task.status = status;
+
+  if (status === TASK_STATUS.COMPLETED) {
+    task.completedAt = new Date();
+  }
+
+  await task.save();
+
+  return await task.populate([
+    {
+      path: "assignedTo",
+      select: "employeeId firstName lastName",
+    },
+    {
+      path: "assignedBy",
+      select: "email role",
+    },
+  ]);
+};
+
 module.exports = {
   createTask,
   getAllTasks,
   getTaskById,
+  updateTaskStatus,
 };

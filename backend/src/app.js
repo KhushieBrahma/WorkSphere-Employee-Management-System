@@ -17,6 +17,8 @@ const errorHandler = require("./middleware/errorHandler");
 
 const app = express();
 
+const dashboardRoutes = require("./routes/dashboardRoutes");
+
 // Security Middleware
 app.use(helmet());
 app.use(cors());
@@ -49,5 +51,7 @@ app.use(notFound);
 
 // Global Error Handler
 app.use(errorHandler);
+
+app.use("/api/dashboard", dashboardRoutes);
 
 module.exports = app;

@@ -52,8 +52,29 @@ const getTaskById = async (req, res, next) => {
   }
 };
 
+const updateTaskStatus = async (req, res, next) => {
+  try {
+    const task =
+      await taskService.updateTaskStatus(
+        req.params.id,
+        req.body.status
+      );
+
+    res.status(200).json(
+      new ApiResponse(
+        true,
+        "Task status updated successfully.",
+        task
+      )
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createTask,
   getAllTasks,
   getTaskById,
+  updateTaskStatus,
 };
